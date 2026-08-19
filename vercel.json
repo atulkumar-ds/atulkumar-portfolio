@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/((?!resume/|images/).*)",
+      "destination": "/index.html"
+    }
+  ]
+}
