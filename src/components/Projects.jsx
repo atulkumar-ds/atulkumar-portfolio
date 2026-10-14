@@ -89,8 +89,8 @@ export default function Projects() {
               </div>
 
               <Pipeline
-                stages={featured.versions.v2.pipeline}
-                label="V2 — how it works"
+                stages={featured.pipeline || featured.versions?.v2?.pipeline || []}
+                label={featured.pipelineLabel || (featured.versions?.v2 ? 'V2 — how it works' : 'Pipeline')}
               />
             </div>
           </article>
