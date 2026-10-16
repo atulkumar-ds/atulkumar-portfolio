@@ -79,9 +79,9 @@ export default function RgbThermalSegmentation() {
       {/* Pipeline Stage Visualization */}
       <Reveal>
         <section>
-          <h2 className="font-display text-3xl">Architecture Pipeline</h2>
-          <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-muted">
-            The active model (<code className="text-brass font-mono text-xs">resnet18_dual_stream_cross_modal_attention_v2_1</code>)
+          <h2 className="font-display text-3xl font-normal text-text">Architecture Pipeline</h2>
+          <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-secondary">
+            The active model (<code className="text-cyan font-mono text-xs">resnet18_dual_stream_cross_modal_attention_v2_1</code>)
             processes synchronized 4-channel inputs through parallel ResNet-18 encoders, fuses them at 5 pyramid scales via
             CMAF, and reconstructs full-resolution 9-class segmentation masks through a regularized U-Net decoder.
           </p>
@@ -94,22 +94,22 @@ export default function RgbThermalSegmentation() {
       {/* Module Breakdown */}
       <Reveal>
         <section>
-          <h2 className="font-display text-3xl">Model Architecture Breakdown</h2>
-          <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-muted">
-            Total Trainable Parameters: <span className="font-mono text-brass">{project.totalParams}</span>.
+          <h2 className="font-display text-3xl font-normal text-text">Model Architecture Breakdown</h2>
+          <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-secondary">
+            Total Trainable Parameters: <span className="font-mono text-cyan font-medium">{project.totalParams}</span>.
             Every component is structured to maintain gradient flow and balance both modalities.
           </p>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {project.architectureModules.map((module) => (
-              <div key={module.name} className="panel p-5 flex flex-col justify-between">
+              <div key={module.name} className="panel p-5 flex flex-col justify-between hover:border-cyan/30 transition-all duration-200">
                 <div>
-                  <h3 className="font-display text-xl text-text">{module.name}</h3>
-                  <p className="mt-2.5 text-sm leading-relaxed text-muted">{module.details}</p>
+                  <h3 className="font-display text-xl font-normal text-text">{module.name}</h3>
+                  <p className="mt-2.5 text-sm leading-relaxed text-secondary">{module.details}</p>
                 </div>
-                <div className="mt-4 border-t border-line pt-3 flex items-baseline justify-between">
+                <div className="mt-4 border-t border-border/60 pt-3 flex items-baseline justify-between">
                   <span className="font-mono text-[10px] uppercase tracking-wider text-muted">Parameters</span>
-                  <span className="font-mono text-xs text-brass">{module.params}</span>
+                  <span className="font-mono text-xs text-cyan font-medium">{module.params}</span>
                 </div>
               </div>
             ))}
@@ -119,31 +119,31 @@ export default function RgbThermalSegmentation() {
 
       {/* Cross-Modal Attention Fusion Deep Dive */}
       <CaseStudyBlock title="Cross-Modal Attention Fusion (CMAF)">
-        <p className="text-[15px] leading-relaxed text-muted">
+        <p className="text-[15px] leading-relaxed text-secondary">
           Standard fusion approaches concatenate features or compute simple element-wise sums. This often leads to modality
           dominance, where the network overfits to RGB during sunny frames and fails to leverage thermal data when glare or darkness occurs.
         </p>
-        <div className="mt-6 rounded-lg border border-line bg-surface/40 p-6 space-y-4">
-          <h4 className="font-mono text-xs uppercase tracking-wider text-brass">
+        <div className="mt-6 rounded-xl border border-border/70 bg-elevated/50 p-6 space-y-4">
+          <h4 className="font-mono text-xs uppercase tracking-wider text-cyan font-medium">
             Three-Stage CMAF Mechanism (Implemented across 5 Pyramid Scales)
           </h4>
-          <ol className="space-y-3 text-sm leading-relaxed text-muted">
+          <ol className="space-y-3 text-sm leading-relaxed text-secondary">
             <li className="flex gap-3">
-              <span className="font-mono text-brass font-bold">1.</span>
+              <span className="font-mono text-cyan font-bold">1.</span>
               <span>
                 <strong className="text-text">Channel Attention Gate:</strong> Global average pooling across concatenated RGB and thermal features passes through a squeeze-and-excitation MLP with reduction ratio 16, dynamically weighting which feature channels are most informative.
               </span>
             </li>
             <li className="flex gap-3">
-              <span className="font-mono text-brass font-bold">2.</span>
+              <span className="font-mono text-cyan font-bold">2.</span>
               <span>
                 <strong className="text-text">Cross-Spatial Attention Gate:</strong> Channel-wise mean and max projections are concatenated and passed through a large 7x7 spatial convolution with sigmoid activation, creating a spatial mask that highlights boundaries detected by either sensor.
               </span>
             </li>
             <li className="flex gap-3">
-              <span className="font-mono text-brass font-bold">3.</span>
+              <span className="font-mono text-cyan font-bold">3.</span>
               <span>
-                <strong className="text-text">Residual Identity Injection:</strong> Fused output is combined via <code className="text-brass font-mono text-xs">Fused + 0.5 * (RGB + Thermal)</code>, ensuring raw modality signals are preserved and gradients never vanish during early training.
+                <strong className="text-text">Residual Identity Injection:</strong> Fused output is combined via <code className="text-cyan font-mono text-xs">Fused + 0.5 * (RGB + Thermal)</code>, ensuring raw modality signals are preserved and gradients never vanish during early training.
               </span>
             </li>
           </ol>
@@ -153,19 +153,19 @@ export default function RgbThermalSegmentation() {
       {/* Target Classes */}
       <Reveal>
         <section>
-          <h2 className="font-display text-3xl">MFNet 9-Class Segmentation Targets</h2>
-          <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-muted">
+          <h2 className="font-display text-3xl font-normal text-text">MFNet 9-Class Segmentation Targets</h2>
+          <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-secondary">
             The network predicts pixel-wise logits across 9 urban classes, with void and boundary pixels (index 255) strictly masked out during loss calculation.
           </p>
 
           <div className="mt-6 grid gap-3 sm:grid-cols-3">
             {project.classes.map((cls) => (
-              <div key={cls.id} className="panel p-4">
+              <div key={cls.id} className="panel p-4 hover:border-cyan/30 transition-all duration-200">
                 <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs text-brass">Class {cls.id}</span>
-                  <span className="font-display text-lg text-text">{cls.name}</span>
+                  <span className="font-mono text-xs text-cyan font-medium">Class {cls.id}</span>
+                  <span className="font-display text-lg font-normal text-text">{cls.name}</span>
                 </div>
-                <p className="mt-2 text-xs leading-relaxed text-muted">{cls.desc}</p>
+                <p className="mt-2 text-xs leading-relaxed text-secondary">{cls.desc}</p>
               </div>
             ))}
           </div>
@@ -175,8 +175,8 @@ export default function RgbThermalSegmentation() {
       {/* v1 vs v2.1 Architectural Evolution */}
       <Reveal>
         <section>
-          <h2 className="font-display text-3xl">{project.v1Comparison.title}</h2>
-          <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-muted">
+          <h2 className="font-display text-3xl font-normal text-text">{project.v1Comparison.title}</h2>
+          <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-secondary">
             The project began with a scratch dual-stream ConvNet. Measuring its failure mode directly motivated the v2.1 ResNet-18 + CMAF design.
           </p>
 
@@ -193,7 +193,7 @@ export default function RgbThermalSegmentation() {
       {/* Diagnosis of Baseline Failure */}
       <CaseStudyBlock title="Diagnosing the Baseline Bottleneck">
         <div className="space-y-4">
-          <p className="text-[15px] leading-relaxed text-muted">
+          <p className="text-[15px] leading-relaxed text-secondary">
             {project.v1Comparison.v1Diagnosis}
           </p>
           <Caveat>
@@ -202,7 +202,7 @@ export default function RgbThermalSegmentation() {
             The network achieved 86% training mIoU while validation mIoU hovered at 34.56%. Rare classes like Bump and Color Cone
             were completely missed because random kernels could not extract generalizable features from a few dozen occurrences.
           </Caveat>
-          <p className="text-[15px] leading-relaxed text-muted">
+          <p className="text-[15px] leading-relaxed text-secondary">
             {project.v1Comparison.v2Solution}
           </p>
         </div>
@@ -211,15 +211,15 @@ export default function RgbThermalSegmentation() {
       {/* Training Methodology & Stability */}
       <Reveal>
         <section>
-          <h2 className="font-display text-3xl">Training Methodology & Objective Formulation</h2>
-          <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-muted">
+          <h2 className="font-display text-3xl font-normal text-text">Training Methodology & Objective Formulation</h2>
+          <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-secondary">
             Every hyperparameter and training choice is engineered for multi-spectral stability and class imbalance handling.
           </p>
           <div className="mt-8 grid gap-5 sm:grid-cols-2">
             {project.trainingSetup.map((item) => (
-              <div key={item.title} className="panel p-5">
-                <h3 className="font-mono text-xs uppercase tracking-wider text-brass">{item.title}</h3>
-                <p className="mt-2.5 text-sm leading-relaxed text-muted">{item.body}</p>
+              <div key={item.title} className="panel p-5 hover:border-cyan/30 transition-all duration-200">
+                <h3 className="font-mono text-xs uppercase tracking-wider text-cyan font-medium">{item.title}</h3>
+                <p className="mt-2.5 text-sm leading-relaxed text-secondary">{item.body}</p>
               </div>
             ))}
           </div>
@@ -228,9 +228,9 @@ export default function RgbThermalSegmentation() {
 
       {/* Dataset Audit */}
       <CaseStudyBlock title="Data Integrity & Pre-Training Audit">
-        <p className="text-[15px] leading-relaxed text-muted">
+        <p className="text-[15px] leading-relaxed text-secondary">
           Multi-spectral datasets are notoriously prone to misalignment, missing thermal bands, and accidental data leakage.
-          Before training, the repository's <code className="text-brass font-mono text-xs">audit_mfnet.py</code> utility runs
+          Before training, the repository's <code className="text-cyan font-mono text-xs">audit_mfnet.py</code> utility runs
           a non-destructive integrity audit across all 1,568 sample pairs:
         </p>
         <div className="mt-5">
@@ -248,22 +248,22 @@ export default function RgbThermalSegmentation() {
       {/* Published Literature Benchmarks */}
       <Reveal>
         <section>
-          <h2 className="font-display text-3xl">Published Literature on MFNet</h2>
-          <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-muted">
+          <h2 className="font-display text-3xl font-normal text-text">Published Literature on MFNet</h2>
+          <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-secondary">
             For academic context, published multi-spectral semantic segmentation benchmarks on the MFNet dataset report the following reference scores:
           </p>
-          <div className="mt-6 overflow-hidden rounded-lg border border-line">
-            <div className="grid grid-cols-[1.5fr_1fr_1fr] bg-surface p-4 font-mono text-[11px] uppercase tracking-wider text-brass">
-              <span>Model & Citation</span>
+          <div className="mt-6 overflow-hidden rounded-xl border border-border/80">
+            <div className="grid grid-cols-[1.5fr_1fr_1fr] bg-elevated/80 p-4 font-mono text-xs uppercase tracking-wider text-cyan font-medium border-b border-border/60">
+              <span>Model &amp; Citation</span>
               <span>Backbone</span>
               <span className="text-right">Published mIoU</span>
             </div>
-            <div className="divide-y divide-line">
+            <div className="divide-y divide-border/50">
               {project.literatureBenchmarks.map((bench) => (
-                <div key={bench.model} className="grid grid-cols-[1.5fr_1fr_1fr] bg-ink p-4 text-sm text-muted">
+                <div key={bench.model} className="grid grid-cols-[1.5fr_1fr_1fr] bg-surface/60 p-4 text-sm text-secondary">
                   <span className="text-text font-medium">{bench.model}</span>
                   <span className="font-mono text-xs">{bench.backbone}</span>
-                  <span className="font-mono text-xs text-brass text-right font-bold">{bench.mIoU}</span>
+                  <span className="font-mono text-xs text-cyan text-right font-bold">{bench.mIoU}</span>
                 </div>
               ))}
             </div>

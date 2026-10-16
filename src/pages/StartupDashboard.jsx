@@ -15,21 +15,21 @@ export default function StartupDashboard() {
   return (
     <CaseStudyLayout project={project}>
       <CaseStudyBlock title="Overview">
-        <p className="text-[15px] leading-relaxed text-muted">{project.description}</p>
+        <p className="text-[15px] leading-relaxed text-secondary">{project.description}</p>
       </CaseStudyBlock>
 
       <CaseStudyBlock title="The problem">
-        <p className="text-[15px] leading-relaxed text-muted">{project.problem}</p>
+        <p className="text-[15px] leading-relaxed text-secondary">{project.problem}</p>
       </CaseStudyBlock>
 
       <Reveal>
         <section>
-          <h2 className="font-display text-3xl">The data</h2>
-          <dl className="mt-8 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+          <h2 className="font-display text-3xl font-normal text-text">The data</h2>
+          <dl className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {project.dataFacts.map((fact) => (
-              <div key={fact.label} className="bg-ink p-5">
-                <dt className="eyebrow">{fact.label}</dt>
-                <dd className="mt-2 font-display text-3xl text-brass">{fact.value}</dd>
+              <div key={fact.label} className="rounded-xl border border-border/70 bg-surface/80 p-5 hover:border-cyan/30 transition-all duration-200">
+                <dt className="text-xs font-mono uppercase tracking-wider text-cyan font-medium">{fact.label}</dt>
+                <dd className="mt-2 font-display text-3xl font-normal text-cyan">{fact.value}</dd>
               </div>
             ))}
           </dl>
@@ -41,7 +41,7 @@ export default function StartupDashboard() {
 
       <Reveal>
         <section>
-          <h2 className="font-display text-3xl">Data flow</h2>
+          <h2 className="font-display text-3xl font-normal text-text">Data flow</h2>
           <div className="mt-8">
             <Pipeline stages={project.pipeline} label="From raw CSV to a public URL" />
           </div>
@@ -57,7 +57,7 @@ export default function StartupDashboard() {
       </CaseStudyBlock>
 
       <CaseStudyBlock title="Deployment">
-        <p className="text-[15px] leading-relaxed text-muted">
+        <p className="text-[15px] leading-relaxed text-secondary">
           Deployed to Streamlit Cloud straight from the repository, with a requirements.txt
           pinning streamlit, pandas, numpy, matplotlib and seaborn. No build step and no server
           to maintain — a push to the default branch redeploys it.

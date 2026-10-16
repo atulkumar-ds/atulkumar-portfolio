@@ -7,9 +7,9 @@ export default function CodingProfiles() {
   return (
     <Section
       id="coding"
-      eyebrow="Problem solving"
-      title="Algorithms, contests and the daily grind."
-      intro="Practised mostly in C++. These cards read from each platform's public data rather than repeating a number from my resume, so what you see is the latest they will give us."
+      eyebrow="Algorithmic Foundations"
+      title="Algorithms, Contests & Systematic Practice"
+      intro="Practised primarily in C++. These profile cards query public endpoints to present real-time contest ratings and solved problem counts directly from each platform."
     >
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {codingProfiles.map((entry, index) => (
@@ -19,11 +19,14 @@ export default function CodingProfiles() {
         ))}
       </div>
 
-      <p className="mt-6 font-mono text-[11px] leading-relaxed text-muted">
-        Fetched on load and cached for 30 minutes. GitHub and Codeforces come from their
-        official public APIs; the others read public profile data through community
-        endpoints, so they occasionally go quiet.
-      </p>
+      <div className="mt-8 rounded-xl border border-border/70 bg-surface/60 p-4.5 flex flex-wrap items-center justify-between gap-3 font-mono text-xs text-secondary">
+        <span className="flex items-center gap-2">
+          <span className="h-1.5 w-1.5 rounded-full bg-cyan shadow-[0_0_8px_rgba(34,211,238,0.5)]" />
+          Cached for 30 minutes. Live API endpoints for GitHub and Codeforces, with graceful fallbacks for competitive profiles.
+        </span>
+        <span className="text-muted text-[11px]">Runtime synced</span>
+      </div>
     </Section>
   )
 }
+

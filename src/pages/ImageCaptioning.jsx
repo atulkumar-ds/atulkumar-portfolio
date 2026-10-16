@@ -15,14 +15,14 @@ export default function ImageCaptioning() {
   return (
     <CaseStudyLayout project={project}>
       <CaseStudyBlock title="Overview">
-        <p className="text-[15px] leading-relaxed text-muted">{project.description}</p>
-        <p className="mt-5 text-[15px] leading-relaxed text-muted">
-          <span className="text-text">Dataset.</span> {project.dataset}
+        <p className="text-[15px] leading-relaxed text-secondary">{project.description}</p>
+        <p className="mt-5 text-[15px] leading-relaxed text-secondary">
+          <span className="text-text font-medium">Dataset:</span> {project.dataset}
         </p>
       </CaseStudyBlock>
 
       <CaseStudyBlock title="Why I built it">
-        <p className="text-[15px] leading-relaxed text-muted">
+        <p className="text-[15px] leading-relaxed text-secondary">
           Captioning needs two kinds of understanding at once — seeing what is in the frame, and
           saying it in grammatical English — which makes it a good test of whether a pipeline
           actually holds together end to end. I wanted a project where I could not hide behind a
@@ -34,8 +34,8 @@ export default function ImageCaptioning() {
       {/* The interactive V1 / V2 switch */}
       <Reveal>
         <section>
-          <h2 className="font-display text-3xl">The two versions</h2>
-          <p className="mt-5 max-w-3xl text-[15px] leading-relaxed text-muted">
+          <h2 className="font-display text-3xl font-normal text-text">The two versions</h2>
+          <p className="mt-5 max-w-3xl text-[15px] leading-relaxed text-secondary">
             Both versions live in the same repository, in separate directories, with their own
             source, their own saved artefacts and their own app. Switch between them to see what
             actually changed.
@@ -49,8 +49,8 @@ export default function ImageCaptioning() {
       {/* The hinge of the whole project */}
       <Reveal>
         <section>
-          <h2 className="font-display text-3xl">{limitation.title}</h2>
-          <p className="mt-5 max-w-3xl text-[15px] leading-relaxed text-muted">
+          <h2 className="font-display text-3xl font-normal text-text">{limitation.title}</h2>
+          <p className="mt-5 max-w-3xl text-[15px] leading-relaxed text-secondary">
             {limitation.body}
           </p>
           <div className="mt-8">
@@ -68,36 +68,29 @@ export default function ImageCaptioning() {
       </CaseStudyBlock>
 
       <CaseStudyBlock title={application.title}>
-        <p className="text-[15px] leading-relaxed text-muted">{application.body}</p>
+        <p className="text-[15px] leading-relaxed text-secondary">{application.body}</p>
         <div className="mt-8">
           <Pipeline stages={application.steps} label="What happens when you press the button" />
         </div>
       </CaseStudyBlock>
 
-      {/*
-        Example gallery. Renders only when real screenshots exist, so nothing
-        placeholder-looking is ever shown to a visitor.
-
-        To fill it: drop images into public/images/ and add entries to
-        `examples` in src/data/projects.js in the shape
-        { image: '/images/caption-1.jpg', caption: '...', version: 'V2' }
-      */}
+      {/* Example gallery */}
       {examples.length > 0 && (
         <CaseStudyBlock title="Example outputs" wide>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {examples.map((example) => (
-              <figure key={example.image} className="panel overflow-hidden">
+              <figure key={example.image} className="panel overflow-hidden hover:border-cyan/30 transition-all duration-200">
                 <img
                   src={example.image}
                   alt={`Generated caption: ${example.caption}`}
                   loading="lazy"
                   className="aspect-[4/3] w-full object-cover"
                 />
-                <figcaption className="border-t border-line p-4">
+                <figcaption className="border-t border-border/60 p-4">
                   {example.version && (
-                    <span className="eyebrow text-brass">{example.version}</span>
+                    <span className="text-xs font-mono uppercase tracking-wider text-cyan font-semibold">{example.version}</span>
                   )}
-                  <p className="mt-2 font-mono text-xs leading-relaxed text-muted">
+                  <p className="mt-2 font-mono text-xs leading-relaxed text-secondary">
                     {example.caption}
                   </p>
                 </figcaption>

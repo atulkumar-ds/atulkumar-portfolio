@@ -1,23 +1,33 @@
 import { Link } from 'react-router-dom'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, AlertCircle } from 'lucide-react'
 
 export default function NotFound() {
   return (
-    <section className="hero-wash flex min-h-[70vh] items-center">
+    <section className="flex min-h-[75vh] items-center pt-24 pb-20">
       <div className="shell">
-        <p className="eyebrow">404</p>
-        <h1 className="mt-4 font-display text-5xl leading-tight sm:text-6xl">
-          This page does not exist.
-        </h1>
-        <p className="mt-4 max-w-md text-[15px] leading-relaxed text-muted">
-          The link may be out of date, or the address has a typo in it. The projects and contact
-          details are all on the home page.
-        </p>
-        <Link to="/" className="btn-primary mt-9">
-          <ArrowLeft size={16} aria-hidden="true" />
-          Back to home
-        </Link>
+        <div className="rounded-2xl border border-border/80 bg-surface/80 max-w-xl p-8 sm:p-10 shadow-2xl backdrop-blur-sm">
+          <div className="flex items-center gap-2 text-cyan font-mono text-xs mb-4">
+            <AlertCircle size={15} />
+            <span className="uppercase tracking-wider font-semibold">404 · Page Not Found</span>
+          </div>
+
+          <h1 className="font-display text-4xl sm:text-5xl font-normal text-text leading-tight">
+            Target route does not exist.
+          </h1>
+
+          <p className="mt-4 text-sm sm:text-base leading-relaxed text-secondary">
+            The requested resource cannot be located. All architectural case studies, active repositories, and contact endpoints are available on the home page.
+          </p>
+
+          <div className="mt-8">
+            <Link to="/" className="btn-primary">
+              <ArrowLeft size={15} aria-hidden="true" />
+              <span>Return to Home</span>
+            </Link>
+          </div>
+        </div>
       </div>
     </section>
   )
 }
+

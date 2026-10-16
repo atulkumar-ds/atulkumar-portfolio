@@ -1,22 +1,38 @@
 import Reveal from './Reveal.jsx'
 
 /**
- * One page section: anchor id, mono eyebrow label, serif title, optional intro.
- * Using this everywhere keeps vertical rhythm identical across the page.
+ * Editorial section wrapper providing unified typographic hierarchy,
+ * clean margins, and consistent spacing across all portfolio sections.
  */
-export default function Section({ id, eyebrow, title, intro, children, className = '' }) {
+export default function Section({
+  id,
+  eyebrow,
+  title,
+  intro,
+  children,
+  className = '',
+}) {
   return (
-    <section id={id} className={`scroll-mt-24 border-t border-line py-20 sm:py-28 ${className}`}>
+    <section
+      id={id}
+      className={`scroll-mt-20 border-t border-border/80 py-20 sm:py-24 relative ${className}`}
+    >
       <div className="shell">
         <Reveal>
-          <div className="max-w-2xl">
-            {eyebrow && <p className="eyebrow">{eyebrow}</p>}
-            <h2 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">{title}</h2>
-            {intro && <p className="mt-4 text-[15px] leading-relaxed text-muted">{intro}</p>}
+          <div className="max-w-3xl mb-12">
+            {eyebrow && <p className="eyebrow mb-3">{eyebrow}</p>}
+            <h2 className="font-display text-4xl sm:text-5xl text-text tracking-tight leading-[1.08]">
+              {title}
+            </h2>
+            {intro && (
+              <p className="mt-4 text-base sm:text-lg leading-relaxed text-secondary">
+                {intro}
+              </p>
+            )}
           </div>
         </Reveal>
 
-        <div className="mt-12">{children}</div>
+        <div>{children}</div>
       </div>
     </section>
   )
